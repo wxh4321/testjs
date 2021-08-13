@@ -22,20 +22,29 @@ Function.prototype.myapply = function(content,args=[]){
     delete self.fn;
     return result;
 }
-Function.prototype.mybind = function(content,...args){
-    const self = this;
-    args = args?args:[];
-    return function F(...newArgs){
-        if(this instanceof F){
-            return new self(...args,...newArgs);
-        }
-        else{
-            const doubleArgs = args.concat(newArgs);
-            return self.myapply(content,doubleArgs);
-        }
+// Function.prototype.mybind = function(content,...args){
+//     const self = this;
+//     args = args?args:[];
+//     return function F(...newArgs){
+//         if(this instanceof F){
+//             console.log('...args,...newArgs ',...args,...newArgs);
+//             return new self(...args,...newArgs);
+//         }
+//         else{
+//             const doubleArgs = args.concat(newArgs);
+//             return self.myapply(content,doubleArgs);
+//         }
+//     }
+// }
+// 二版
+Function.prototype.mybind =  function(content){
+    const fn = this;
+    console.log('[...arguments]',[...arguments]);
+    let args = [...arguments].slice(1);
+    return function F(){
+        return fn.apply(this instanceof F?new fn:content,args.concat(...arguments))
     }
 }
-
 
 
 var name = '小王',age = 17;
@@ -60,15 +69,9 @@ obj.myFun.mycall(db,'成都','上海');
 obj.myFun.myapply(db,['成都','上海']);
 // obj.myFun.mybind(db,'成都','上海')();
 // obj.myFun.mybind(db,['成都','上海'])();
+const bindFun = obj.myFun.mybind(db);
+const res = new bindFun('成都','上海');
+// console.log('res : ',res(db,'1','2'));
+// res();
 
-const test = ['a','b']
-const t1 = [... test];
-console.log('test : ',t1);
 
-Function.prototype.mycall = function(content,...args){
-    const self = content||window;
-    self.fn = this;
-    const result = self.fn(...args);
-    delete self.fn;
-    return result;
-}
