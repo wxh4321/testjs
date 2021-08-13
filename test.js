@@ -1,16 +1,18 @@
-class Promise1{
+
+
+class Promise1 {
     constructor(handle){
-        this['[[PromiseState]]']='pending';
-        this['[[PromiseResult]]']=undefined;
+        this['[[PromiseState]]'] = 'pending';
+        this['[[PromiseResult]]'] = undefined;
         this.resolveQueue = [];
         this.rejectQueue = [];
         handle&&handle(this._resovle.bind(this),this._reject.bind(this));
     }
     _resovle(val){
-        this['[[PromiseState]]']='fulfilled';
-        this['[[PromiseResult]]']=val;
-        const run = () => {
-            let cb =null;
+        this['[[PromiseState]]'] = 'fulfilled';
+        this['[[PromiseResult]]'] = val;
+        const run = () =>{
+            let cb;
             while(cb=this.resolveQueue.shift()){
                 cb&&cb(val);
             }
@@ -18,11 +20,11 @@ class Promise1{
         setTimeout(run);
     }
     _reject(err){
-        this['[[PromiseState]]']='rejected';
-        this['[[PromiseResult]]']=err;
-        const run = () => {
-            let cb =null;
-            while(cb=this.resolveQueue.shift()){
+        this['[[PromiseState]]'] = 'rejected';
+        this['[[PromiseResult]]'] = err;
+        const run = () =>{
+            let cb;
+            while(cb=this.rejectQueue.shift()){
                 cb&&cb(err);
             }
         }
@@ -36,7 +38,7 @@ class Promise1{
                     res.then(resolve);
                 }
                 else{
-                    resolve(res);
+                    resolve(val);
                 }
             }
             this.resolveQueue.push(resolveFn);
@@ -50,16 +52,16 @@ class Promise1{
     catch(cb){
         this.then(undefined,cb);
     }
-    finally(cb){
+    finallly(cb){
         this.then(cb,undefined);
     }
-    static resovle(val){
+    static resolve(val){
         return new Promise1((resolve,reject)=>{
             resolve(val);
         });
     }
     static reject(err){
-        return new Promise1((resolve,reject)=>{
+        return new Promise1((resolve,reject)=>{ 
             reject(err);
         });
     }
@@ -67,21 +69,21 @@ class Promise1{
         return new Promise1((resolve,reject)=>{
             let index = 0;
             const result = new Array(index);
+            let eleCount = 0;
             let hasOcurredErr = false;
-            let elecount = 0;
             for(let promise of iterable){
                 let currentIndex = index;
                 promise.then(
                     (val)=>{
-                        if(hasOcurredErr)return;
+                        if(hasOcurredErr){return;}
                         result[currentIndex] = val;
-                        elecount++;
-                        if(elecount===iterable.length){
+                        eleCount++;
+                        if(eleCount===iterable.length){
                             resolve(result);
                         }
                     },
                     (err)=>{
-                        if(hasOcurredErr)return;
+                        if(hasOcurredErr){return;}
                         hasOcurredErr = true;
                         reject(err);
                     }
@@ -95,17 +97,21 @@ class Promise1{
     }
     static race(iterable){
         return new Promise1((resolve,reject)=>{
-            let elesettledstate = false;
+            let hassettleElement = false;
             for(let promise of iterable){
                 promise.then(
                     (val)=>{
-                        if(elesettledstate){return};
-                        elesettledstate = true;
+                        if(hassettleElement){
+                            return;
+                        }
+                        hassettleElement = true;
                         resolve(val);
                     },
                     (err)=>{
-                        if(elesettledstate){return};
-                        elesettledstate = true;
+                        if(hassettleElement){
+                            return;
+                        }
+                        hassettleElement = true;
                         reject(err);
                     }
                 );
@@ -116,27 +122,26 @@ class Promise1{
         return new Promise1((resolve,reject)=>{
             let index = 0;
             const result = new Array(index);
-            let elecount = 0;
-            const setEleToResult = (i,ele) => {
+            let eleCount = 0;
+            const AddEleToResult = (i,ele) => {
                 result[i] = ele;
-                elecount++;
-                if(elecount===iterable.length){
+                eleCount++;
+                if(eleCount===iterable.length){
                     resolve(result);
                 }
             }
             for(let promise of iterable){
                 let currentIndex = index;
-                
                 promise.then(
                     (value)=>{
-                        setEleToResult(currentIndex,{
-                            status:'fulfilled',
+                        AddEleToResult(currentIndex,{
+                            status:'fulfilled', 
                             value
                         });
-                    },
+                    }, 
                     (reason)=>{
-                        setEleToResult(currentIndex,{
-                            status:'rejected',
+                        AddEleToResult(currentIndex,{
+                            status:'rejected', 
                             reason
                         });
                     }
@@ -163,6 +168,12 @@ let wake = (time) => {
   
   Promise1.all([p1, p2]).then((result) => {
     console.log(result)       // [ '3秒后醒来', '2秒后醒来' ]
+  }).catch((error) => {
+    console.log(error)
+  })
+
+  Promise1.race([p1, p2]).then((result) => {
+    console.log(result)       // 2秒后醒来
   }).catch((error) => {
     console.log(error)
   })
