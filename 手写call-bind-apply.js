@@ -34,7 +34,6 @@ Function.prototype.mybind = function(content,...args){
             return self.myapply(content,doubleArgs);
         }
     }
-
 }
 
 
