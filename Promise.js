@@ -115,20 +115,56 @@ class Promise1 {
             }
         });
     }
+    // static allSettled(iterable){
+    //     return new Promise((resolve,reject)=>{
+    //         let index = 0;
+    //         let result = new Array(index);
+    //         let elementCount = 0;
+    //         const AddEleToResult = (i,ele) =>{
+    //             result[i] = ele;
+    //             elementCount++;
+    //             if(elementCount===result.length){
+    //                 resolve(result);
+    //             }
+    //         }
+    //         for(let promise of iterable){
+    //             let currentIndex = index;
+    //             promise.then(
+    //                 (value)=>{
+    //                     AddEleToResult(currentIndex,{
+    //                         status:'fulfilled',
+    //                         value,
+    //                     })
+    //                 },
+    //                 (reason)=>{
+    //                     AddEleToResult(currentIndex,{
+    //                         status:'rejected',
+    //                         reason
+    //                     })
+    //                 }
+    //             );
+    //             index++;
+    //         }
+    //         if(index===0){
+    //             resolve([]);
+    //         }
+    //     });
+    // }
     static allSettled(iterable){
         return new Promise((resolve,reject)=>{
-            let index = 0;
-            let result = new Array(index);
+            if(iterable.length===0){
+                resolve([]);
+            }
+            let result = new Array(iterable.length);
             let elementCount = 0;
             const AddEleToResult = (i,ele) =>{
                 result[i] = ele;
                 elementCount++;
-                if(elementCount===result.length){
+                if(elementCount===iterable.length){
                     resolve(result);
                 }
             }
-            for(let promise of iterable){
-                let currentIndex = index;
+            iterable.forEach((promise,currentIndex)=>{
                 promise.then(
                     (value)=>{
                         AddEleToResult(currentIndex,{
@@ -143,11 +179,8 @@ class Promise1 {
                         })
                     }
                 );
-                index++;
-            }
-            if(index===0){
-                resolve([]);
-            }
+            });
+           
         });
     }
 }
