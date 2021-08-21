@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script type="text/javascript" src="../myAxios.js"></script>
+<body>
+    <button class="btn">send ajax</button>
+    <script>
+        // 添加请求拦截器
+        axios.interceptors&&axios.interceptors.request.use(function(config){
+            // 在发送请求之前做些什么
+            console.log('拦截请求')
+            return config;
+        },function(error){
+            return Promise.reject(error);
+        });
+        // 添加响应拦截器
+        axios.interceptors&&axios.interceptors.response.use(function(response){
+            // 对响应数据做点什么
+            console.log('拦截前response',response)
+            response = {msg:'拦截了'}
+            return response;
+        },function(error){
+            console.log(error)
+            // 对响应错误做点什么
+            return Promise.reject(error);
+        });
+        document.querySelector('.btn').onclick= function(){
+            axios({
+                url:'http://localhost:8888/dahai'
+            }).then(res=>{
+                console.log('res : ',res);
+            });
+        }
+    </script>
+</body>
+</html>
