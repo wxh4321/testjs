@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    const debounce = (fn,delay=500) => {
+        let timer;
+        return function(...args){
+            clearTimeout(timer);
+            timer = setTimeout(()=>{
+                fn.apply(this,args)
+            },delay);
+        }
+    }
+    const throttle1 = (fn,delay=500) => {
+        let timer = null;
+        return function(...args){
+            if(!timer){
+                timer = setTimeout(()=>{
+                    timer = null;
+                    fn.apply(this,args);
+                },delay);
+            }
+        }
+    }
+    const throttle2 = (fn,delay=500) => {
+        let oldTime = Date.now();
+        return function(...args){
+            let newTime = Date.now();
+            if(newTime-oldTime>delay){
+                oldTime = Date.now();
+                fn.apply(this,args);
+            }
+        }
+    }
+    const moveFunc = (e) =>{
+        console.log('run ',e);
+    }
+    let myfun = debounce(moveFunc,1000);
+    document.onmousemove = ()=>{
+        myfun(1)
+    };
+</script>
+<body>
+    
+</body>
+</html>

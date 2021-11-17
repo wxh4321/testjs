@@ -1,0 +1,39 @@
+{
+    "start":{
+      "title":"Conditional Surrender",
+      "content":[
+      {
+      "name":"You step out, tripping over some rocks on the way.",
+      "classlist":[]
+      },
+      {
+      "name":"You are standing outside.",
+      "classlist":[]
+      },
+      {
+      "name":"You've got a lamp.",
+      "classlist":["lit"]
+      }
+      ],
+      "button":[{
+      "name":"Go inside",
+      "classlist":["lit"],
+      "next":"inside",
+      "step":"step0"
+      }]
+    },
+    "inside":{
+      "step0":{
+        "content":[
+        
+        ],
+        "button":[
+
+        ]
+      },
+    },
+    "outside":{
+    
+    }
+}
+    

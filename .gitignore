@@ -1,10 +1,29 @@
-.idea
-.idea/
 .DS_Store
-node_modules/
-.project
-dist
-dist/*
-src/config/*.tmp
-src/config/env.js
-npm-debug.log
+node_modules
+/dist
+
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# local docs
+todo-list.md
+*todo-list*.md
+docs
+yarn-error.log
