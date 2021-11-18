@@ -3,12 +3,14 @@
 let story;
 let inventory;
 let buttons;
+let dic;
 fetch("story.yaml")
   .then(res => res.text())
   .then(start);
 
 function start(storyText) {
   story = jsyaml.load(storyText);
+  dic = story.names;
   console.log("storyText111", story.start);
   const start = story.start;
   engine.setTitle(start.title);
@@ -24,7 +26,7 @@ function arrive(inventory, buttons) {
   // add des content
   for(let item of inventory.values()) {
     console.log(item);
-    engine.addDescription(item.name, item.classlist);
+    engine.addDescription(dic[item.name], item.classlist);
   }
   // add button
   for(let item of buttons.values()) {

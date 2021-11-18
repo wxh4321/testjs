@@ -1,6 +1,6 @@
 // call 
 Function.prototype.mycall = function(content,...args){
-    console.log(content,args,...args)
+    console.log('mycall ',content,args,...args,arguments)
     const self = content||window;
     // args = args.slice(1);
     self.fn = this;
@@ -39,7 +39,7 @@ Function.prototype.myapply = function(content,args=[]){
 // 二版
 Function.prototype.mybind =  function(content){
     const fn = this;
-    console.log('[...arguments]',[...arguments]);
+    console.log('[...arguments]',[...arguments],arguments);
     let args = [...arguments].slice(1);
     return function F(){
         return fn.apply(this instanceof F?new fn:content,args.concat(...arguments))
@@ -67,10 +67,10 @@ var db = {
 
 obj.myFun.mycall(db,'成都','上海');
 obj.myFun.myapply(db,['成都','上海']);
-// obj.myFun.mybind(db,'成都','上海')();
-// obj.myFun.mybind(db,['成都','上海'])();
-const bindFun = obj.myFun.mybind(db);
-const res = new bindFun('成都','上海');
+obj.myFun.mybind(db,'成都','上海')();
+obj.myFun.mybind(db,['成都','上海'])();
+// const bindFun = obj.myFun.mybind(db);
+// const res = new bindFun('成都','上海');
 // console.log('res : ',res(db,'1','2'));
 // res();
 

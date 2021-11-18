@@ -1,17 +1,59 @@
 {
+    "names":{
+      "1":"Your friends told you to check out this cave, but they warned you that you'll need some light once you get inside. You feel social pressure to go inside just so you can tell them that you did it. ",
+      "2":"You are standing outside.",
+      "3":"You've got a lamp.",
+      "4":"You step inside the cave.",
+      "5":"You are inside, but not very deep inside.",
+      "6":"Your lamp light reflects off a zillion surfaces. This place is pretty nice.",
+      "7":"There's a handy map on the ground.",
+      "8":"You pick up the map, brushing off a thick layer of dust to see the details.",
+      "9":"The map is just indescribably generic. It shows how the outside connects to the deeper place. That's it.",
+      "10":"Having examined the map, you consider where to go next.",
+      "11":"Following the map by the ample light of your map, you find a passageway snaking deeper into the cave.",
+      "12":"This is kind of embarrassing. You've dropped your lamp. It's gone. You should really be more careful.",
+      "13":"Fumbling in the dark, you retrace your steps.",
+      "14":"It's super dark in here. Super.",
+      "15":"You step out, tripping over some rocks on the way.",
+      "16":"You are standing outside.",
+      "17":"You really miss that lamp.",
+      "18":"Alas, the map is your only momento of the experience, generic as it is. You should probably give up now.",
+      "19":"Your inventory is quite impressive. You are ready for adventure.",
+      "20":"Fumbling in the dark, you went backwards.",
+      "21":"You are inside and very deep inside.",
+      "22":"",
+      "23":"",
+      "24":"",
+      "25":"",
+      "26":"",
+      "27":"",
+      "28":"",
+      "29":"",
+      "30":"",
+      "31":"",
+      "32":"",
+      "33":"",
+      "34":"",
+      "35":"",
+      "36":"",
+      "37":"",
+      "38":"",
+      "39":"",
+      "40":"",
+    },
     "start":{
       "title":"Conditional Surrender",
       "content":[
       {
-      "name":"You step out, tripping over some rocks on the way.",
+      "name":"1",
       "classlist":[]
       },
       {
-      "name":"You are standing outside.",
+      "name":"2",
       "classlist":[]
       },
       {
-      "name":"You've got a lamp.",
+      "name":"3",
       "classlist":["lit"]
       }
       ],
@@ -25,15 +67,291 @@
     "inside":{
       "step0":{
         "content":[
-        
+           {
+            "name":"4",
+            "classlist":[]
+           },
+           {
+            "name":"5",
+            "classlist":[]
+           },
+           {
+            "name":"6",
+            "classlist":["lit"]
+           },
+           {
+            "name":"7",
+            "classlist":[]
+           }
         ],
         "button":[
-
+          {
+          "name":"Go outside",
+          "classlist":[],
+          "next":"outside",
+          "step":"step0"
+          },
+          {
+          "name":"Pickup the map",
+          "classlist":[],
+          "next":"inside",
+          "step":"step1"
+          }
         ]
       },
+      "step1":{
+        "content":[
+           {
+            "name":"8",
+            "classlist":[]
+           },
+           {
+            "name":"9",
+            "classlist":[]
+           }
+        ],
+        "button":[
+          {
+            "name":"Think of all of the places you could go!",
+            "classlist":[],
+            "next":"inside",
+            "step":"step2"
+          },
+        ]
+      },
+      "step2":{
+        "content":[
+           {
+            "name":"10",
+            "classlist":[]
+           },
+           {
+            "name":"5",
+            "classlist":[]
+           },
+           {
+            "name":"6",
+            "classlist":["lit"]
+           },
+        ],
+        "button":[
+          {
+            "name":"Go outside",
+            "classlist":[],
+            "next":"outside",
+            "step":"step1"
+          },
+          {
+            "name":"Go deeper",
+            "classlist":["lit"],
+            "next":"inside",
+            "step":"step3"
+          },
+        ]
+      },
+      "step3":{
+        "content":[
+           {
+            "name":"11",
+            "classlist":[]
+           },
+           {
+            "name":"12",
+            "classlist":["dim"]
+           },
+        ],
+        "button":[
+          {
+            "name":"Feel your way back up",
+            "classlist":[],
+            "next":"outside",
+            "step":"step2"
+          },
+        ]
+      },
+      "step4":{
+        "content":[
+           {
+            "name":"20",
+            "classlist":[]
+           },
+           {
+            "name":"21",
+            "classlist":[]
+           },
+           {
+            "name":"14",
+            "classlist":["dim"]
+           },
+        ],
+        "button":[
+           {
+            "name":"Feel your way back up",
+            "classlist":[],
+            "next":"outside",
+            "step":"step2"
+           },
+        ]
+      },
+      "step5":{
+        "content":[],
+        "button":[]
+      },
+      "step6":{
+        "content":[],
+        "button":[]
+      },
+      "step7":{
+        "content":[],
+        "button":[]
+      },
+      "step8":{
+        "content":[],
+        "button":[]
+      },
+      "step9":{
+        "content":[],
+        "button":[]
+      },
+      "step10":{
+        "content":[],
+        "button":[]
+      }
     },
     "outside":{
-    
+      "step0":{
+        "content":[
+           {
+            "name":"15",
+            "classlist":[]
+           },
+           {
+            "name":"16",
+            "classlist":[]
+           },
+           {
+            "name":"3",
+            "classlist":["lit"]
+           },
+        ],
+        "button":[
+          {
+            "name":"Go inside",
+            "classlist":["lit"],
+            "next":"inside",
+            "step":"step0"
+          },
+        ]
+      },
+      "step1":{
+        "content":[
+           {
+            "name":"15",
+            "classlist":[]
+           },
+           {
+            "name":"2",
+            "classlist":[]
+           },
+           {
+            "name":"3",
+            "classlist":["lit"]
+           },
+           {
+            "name":"19",
+            "classlist":["lit"]
+           },
+        ],
+        "button":[
+            {
+              "name":"Go inside",
+              "classlist":["lit"],
+              "next":"inside",
+              "step":"step2"
+            },
+        ]
+      },
+      "step2":{
+        "content":[
+           {
+            "name":"13",
+            "classlist":[]
+           },
+           {
+            "name":"5",
+            "classlist":[]
+           },
+           {
+            "name":"14",
+            "classlist":["dim"]
+           },
+        ],
+        "button":[
+          {
+            "name":"Go inside",
+            "classlist":[],
+            "next":"inside",
+            "step":"step4"
+          },
+          {
+            "name":"Go outside",
+            "classlist":[],
+            "next":"outside",
+            "step":"step3"
+          },
+        ]
+      },
+      "step3":{
+        "content":[
+           {
+            "name":"15",
+            "classlist":[]
+           },
+           {
+            "name":"16",
+            "classlist":[]
+           },
+           {
+            "name":"17",
+            "classlist":["dim"]
+           },
+           {
+            "name":"18",
+            "classlist":["dim"]
+           },
+        ],
+        "button":[
+         
+        ]
+      },
+      "step4":{
+        "content":[],
+        "button":[]
+      },
+      "step5":{
+        "content":[],
+        "button":[]
+      },
+      "step6":{
+        "content":[],
+        "button":[]
+      },
+      "step7":{
+        "content":[],
+        "button":[]
+      },
+      "step8":{
+        "content":[],
+        "button":[]
+      },
+      "step9":{
+        "content":[],
+        "button":[]
+      },
+      "step10":{
+        "content":[],
+        "button":[]
+      }
     }
 }
     

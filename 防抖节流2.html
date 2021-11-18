@@ -9,7 +9,9 @@
 <script>
     const debounce = (fn,delay=500) => {
         let timer;
+        
         return function(...args){
+            console.log(arguments)
             clearTimeout(timer);
             timer = setTimeout(()=>{
                 fn.apply(this,args)
